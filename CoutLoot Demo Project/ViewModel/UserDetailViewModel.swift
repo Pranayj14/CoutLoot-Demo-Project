@@ -21,16 +21,16 @@ class UserDetailViewModel {
         }
     }
     func dateAndTimeFormat(dateTimeofArticle: String) -> String{
-           let dateTime = dateTimeofArticle
-           let dateFormatter = DateFormatter()
-           let tempLocale = dateFormatter.locale // save locale temporarily
-           dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-           let date = dateFormatter.date(from: dateTime)!
-           dateFormatter.dateFormat = "MMM dd, yyyy"
-           dateFormatter.locale = tempLocale // reset the locale
-           let dateString = dateFormatter.string(from: date)
+        let dateTime = dateTimeofArticle
+        let dateFormatter = DateFormatter()
+        let tempLocale = dateFormatter.locale // save locale temporarily
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: dateTime)!
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        dateFormatter.locale = tempLocale // reset the locale
+        let dateString = dateFormatter.string(from: date)
         print(dateString)
-           return dateString
+        return dateString
     }
 }

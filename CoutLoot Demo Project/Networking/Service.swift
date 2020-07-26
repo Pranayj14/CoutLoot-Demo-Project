@@ -12,10 +12,10 @@ import Alamofire
 class Service {
     typealias JSON = NSDictionary
     typealias JSONHandler = (JSON?, HTTPURLResponse?, Error?) -> Void
-    //    var error = errorResponse
+    
     //MARK: api call to get post api response
     func getApiResponsePostMethod(apiUrl: String, method: HTTPMethod, postArray: [String: Any], completion: @escaping JSONHandler){
-                DispatchQueue.main.async {
+        DispatchQueue.main.async {
             AF.request(apiUrl, method: method, parameters: postArray).responseJSON { response in
                 switch response.result{
                 case .success:
@@ -23,7 +23,6 @@ class Service {
                         let JSON = jsonArray
                         completion(JSON,response.response,response.error)
                     }
-                    
                 case .failure:
                     completion(nil,response.response,response.error)
                 }
@@ -31,7 +30,4 @@ class Service {
             }
         }
     }
-//    deinit {
-//        ()
-//    }
 }

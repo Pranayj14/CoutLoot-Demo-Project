@@ -34,29 +34,28 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1.0
         }
-                let lastSectionIndex = usersTabelView.numberOfSections - 1
-                let lastRowIndex = usersTabelView.numberOfRows(inSection: lastSectionIndex) - 1
-                if indexPath.row == lastRowIndex {
-                    if viewModel.totalCount > viewModel.user.count && !loadMore{
-        
-                                            let spinner = UIActivityIndicatorView(style: .gray)
-                                            spinner.startAnimating()
-                                            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: usersTabelView.bounds.width, height: CGFloat(44))
-                                            self.usersTabelView.tableFooterView = spinner
-                                            self.usersTabelView.tableFooterView?.isHidden = false
-                    }
+        let lastSectionIndex = usersTabelView.numberOfSections - 1
+        let lastRowIndex = usersTabelView.numberOfRows(inSection: lastSectionIndex) - 1
+        if indexPath.row == lastRowIndex {
+            if viewModel.totalCount > viewModel.user.count && !loadMore{
+                if(viewModel.user.count > 0){
+                    spinner.isHidden = false
+                    spinner.startAnimating()
+                    spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: usersTabelView.bounds.width, height: CGFloat(44))
+                    self.usersTabelView.tableFooterView = spinner
+                    self.usersTabelView.tableFooterView?.isHidden = false
                 }
-        
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-               let vc = storyBoard.instantiateViewController(withIdentifier: "UserDetailsViewController") as! UserDetailsViewController
-           if let userName: String = viewModel.user[indexPath.row]["login"] as? String {
-        vc.githubUserName = userName
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "UserDetailsViewController") as! UserDetailsViewController
+        if let userName: String = viewModel.user[indexPath.row]["login"] as? String {
+            vc.githubUserName = userName
         }
         self.navigationController?.pushViewController(vc, animated: true)
-
     }
     
     
@@ -66,6 +65,8 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
         let contentHeight = scrollView.contentSize.height
         if offset > contentHeight - scrollView.frame.height{
             if viewModel.totalCount > viewModel.user.count && !loadMore{
+                self.usersTabelView.tableFooterView?.isHidden = true
+                spinner.isHidden = true
                 loadMore = true
                 pageNo = pageNo + 1
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -76,5 +77,4 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
         }
         
     }
-    
 }

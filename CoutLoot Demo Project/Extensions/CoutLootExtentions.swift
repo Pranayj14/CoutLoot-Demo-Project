@@ -18,7 +18,6 @@ extension UIImageView {
         let overlay: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         overlay.backgroundColor = UIColor.lightGray
         activityIndicator.startAnimating()
-        
         if self.image == nil{
             self.addSubview(activityIndicator)
             self.addSubview(overlay)
@@ -41,13 +40,3 @@ extension UIImageView {
         }).resume()
     }
 }
-
-extension UIView {
-    func roundCorners(_ corners:UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-    let mask = CAShapeLayer()
-    mask.path = path.cgPath
-    self.layer.mask = mask
-  }
-}
-

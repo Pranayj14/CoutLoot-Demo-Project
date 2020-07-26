@@ -10,7 +10,6 @@ import UIKit
 
 class UserDetailsViewController: UIViewController {
     var userDetailsViewModel = UserDetailViewModel()
-   
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userBio: UILabel!
     @IBOutlet weak var lastUpdatedProfile: UILabel!
