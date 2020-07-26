@@ -2,7 +2,7 @@
 //  UserDetailModel.swift
 //  CoutLoot Demo Project
 //
-//  Created by Saumya Verma on 26/07/20.
+//  Created by Pranay Joshi on 26/07/20.
 //  Copyright © 2020 Pranay Joshi. All rights reserved.
 //
 

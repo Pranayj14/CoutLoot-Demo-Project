@@ -2,7 +2,7 @@
 //  CoutLootExtentions.swift
 //  CoutLoot Demo Project
 //
-//  Created by Saumya Verma on 26/07/20.
+//  Created by Pranay Joshi on 26/07/20.
 //  Copyright © 2020 Pranay Joshi. All rights reserved.
 //
 
@@ -40,5 +40,14 @@ extension UIImageView {
             })
         }).resume()
     }
+}
+
+extension UIView {
+    func roundCorners(_ corners:UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    mask.path = path.cgPath
+    self.layer.mask = mask
+  }
 }
 

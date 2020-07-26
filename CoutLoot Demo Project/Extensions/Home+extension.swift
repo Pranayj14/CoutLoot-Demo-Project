@@ -2,7 +2,7 @@
 //  Home.swift
 //  CoutLoot Demo Project
 //
-//  Created by Saumya Verma on 25/07/20.
+//  Created by Pranay Joshi on 25/07/20.
 //  Copyright © 2020 Pranay Joshi. All rights reserved.
 //
 
