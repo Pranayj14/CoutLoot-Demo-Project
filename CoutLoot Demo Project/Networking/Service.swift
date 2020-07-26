@@ -10,12 +10,13 @@ import Foundation
 import Alamofire
 
 class Service {
+    // MARK: - Declaration of variables and outlets.
     typealias JSON = NSDictionary
     typealias JSONHandler = (JSON?, HTTPURLResponse?, Error?) -> Void
-    
+
     //MARK: api call to get post api response
     func getApiResponsePostMethod(apiUrl: String, method: HTTPMethod, postArray: [String: Any], completion: @escaping JSONHandler){
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .background).async {
             AF.request(apiUrl, method: method, parameters: postArray).responseJSON { response in
                 switch response.result{
                 case .success:

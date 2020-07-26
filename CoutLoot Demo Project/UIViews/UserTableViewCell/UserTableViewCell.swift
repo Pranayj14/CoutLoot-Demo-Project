@@ -9,6 +9,7 @@
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
+    // MARK: - Declaration of variables and outlets.
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     

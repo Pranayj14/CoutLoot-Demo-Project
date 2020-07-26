@@ -10,6 +10,8 @@ import Foundation
 
 class UserDetailViewModel {
     var userDetails : NSDictionary?
+    
+    // MARK: - func to get user details data by calling service class function.
     func getUserDetails(userName:String, completion: @escaping (String) -> ()){
         Service.init().getApiResponsePostMethod(apiUrl: "https://api.github.com/users/" + userName, method: .get, postArray: [:]) { [weak self] (json, response, error) in
             guard let json = json, error == nil else {
@@ -20,6 +22,8 @@ class UserDetailViewModel {
             completion("success")
         }
     }
+    
+    // MARK: - func to get formatted date in human readable format by passing data getting from api.
     func dateAndTimeFormat(dateTimeofArticle: String) -> String{
         let dateTime = dateTimeofArticle
         let dateFormatter = DateFormatter()
@@ -30,7 +34,6 @@ class UserDetailViewModel {
         dateFormatter.dateFormat = "MMM dd, yyyy"
         dateFormatter.locale = tempLocale // reset the locale
         let dateString = dateFormatter.string(from: date)
-        print(dateString)
         return dateString
     }
 }

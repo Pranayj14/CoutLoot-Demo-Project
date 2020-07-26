@@ -9,12 +9,12 @@
 import UIKit
 
 class UserViewController: UIViewController, UITextFieldDelegate {
+    // MARK: - Declaration of variables and outlets.
     let viewModel = HomeViewModel()
     let spinner = UIActivityIndicatorView(style: .gray)
     var pageNo = 1
     var loadMore = false
     var searchString: String?
-    
     @IBOutlet weak var searchImage: UIImageView!
     @IBOutlet weak var searchLabel: UILabel!
     @IBOutlet weak var usersSearchTextfield: UITextField!
@@ -28,6 +28,7 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         self.usersTabelView.register(usersNib, forCellReuseIdentifier: "UserTableViewCell")
     }
     
+    // MARK: - Textfield action to remove objects from array and show search image and search label.
     @IBAction func searchUser(_ sender: Any) {
         if(usersSearchTextfield.text?.count ?? 0 == 0){
             viewModel.user.removeAll()
@@ -38,15 +39,28 @@ class UserViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - function to get githubusers data
     func getUserData() {
-        viewModel.getUsers(pageNo: pageNo, searchName: searchString ?? "") { [weak self] (response) in
-            self?.searchLabel.isHidden = true
-            self?.searchImage.isHidden = true
-            self?.usersTabelView.isHidden = false
-            self?.usersTabelView.reloadData()
+        viewModel.getUsers(pageNo: pageNo, searchName: searchString ?? "") { (response) in
+            if(response == "success"){
+                self.searchLabel.isHidden = true
+                self.searchImage.isHidden = true
+                self.usersTabelView.isHidden = false
+                self.spinner.isHidden = true
+                self.usersTabelView.reloadData()
+            }else{
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "", message: "Check your internet connection or contact the Administrator.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                        
+                    }))
+                    self.present(alert, animated: false, completion: nil)
+                }
+            }
         }
     }
     
+    // MARK: - function todismiss the keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         pageNo = 1
@@ -55,7 +69,13 @@ class UserViewController: UIViewController, UITextFieldDelegate {
             getUserData()
         }else {
             spinner.isHidden = true
-            print("please enter some character")
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "", message: "Please enter something!!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                    
+                }))
+                self.present(alert, animated: false, completion: nil)
+            }
         }
         return true
     }

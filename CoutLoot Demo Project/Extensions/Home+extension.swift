@@ -36,6 +36,7 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
         }
         let lastSectionIndex = usersTabelView.numberOfSections - 1
         let lastRowIndex = usersTabelView.numberOfRows(inSection: lastSectionIndex) - 1
+         if(self.usersSearchTextfield.text?.count ?? 0 > 0){
         if indexPath.row == lastRowIndex {
             if viewModel.totalCount > viewModel.user.count && !loadMore{
                 if(viewModel.user.count > 0){
@@ -46,6 +47,7 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
                     self.usersTabelView.tableFooterView?.isHidden = false
                 }
             }
+        }
         }
     }
     
@@ -58,20 +60,19 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate{
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    
     // MARK: - function used to implement for pagination.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         if offset > contentHeight - scrollView.frame.height{
+            if(self.usersSearchTextfield.text?.count ?? 0 > 0){
             if viewModel.totalCount > viewModel.user.count && !loadMore{
-                self.usersTabelView.tableFooterView?.isHidden = true
-                spinner.isHidden = true
                 loadMore = true
                 pageNo = pageNo + 1
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.getUserData()
                     self.loadMore = false
+                    }
                 }
             }
         }
