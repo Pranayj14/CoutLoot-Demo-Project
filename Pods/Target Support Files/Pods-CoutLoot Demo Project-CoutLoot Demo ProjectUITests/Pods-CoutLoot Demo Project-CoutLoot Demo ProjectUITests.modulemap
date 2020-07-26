@@ -1,0 +1,6 @@
+framework module Pods_CoutLoot_Demo_Project_CoutLoot_Demo_ProjectUITests {
+  umbrella header "Pods-CoutLoot Demo Project-CoutLoot Demo ProjectUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
